@@ -1,4 +1,4 @@
-NoSQL-Test-Results-Repository
+NoSQL Test Results Repository
 =============================
 
 Tool to collect YCSB performance test results into MongoDB.
