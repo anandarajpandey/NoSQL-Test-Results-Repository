@@ -53,7 +53,7 @@ Hardware
     NetworkMultiqueue-8
 
 OS
---
+---
 
     Family-Ubuntu
     Family-Linux
@@ -67,6 +67,7 @@ OS
 
 Database
 --------
+
     Name-Aerospike
     Version-2.1.2
     Records-500M
@@ -88,130 +89,135 @@ Test results collection (reviewed)
 ----------------------------------
 
 This is the main collection used everywhere (from UI). So it should be strongly defined. Here is the definition.
-{
-	_id: ObjectId
-	datetime: date		# timestamp when the test was performed
-	name: string
-	tags: [ string, ... ]	# ALL tags applicable for this test
-result: {
-		runtime: int64				# test runtime in ms
-		throughput: double			# test throughput in ops/sec
-		read {
-			ops: int64				# read operations performed
-			retries: int64			# retries done
-			successes: int64		# no of success operations
-			failures: int64			# no of failed operations
-			latency: {
-				avg: double			# average latency
-				min: double			# minimal latency
-				max: double			# maximal latency
-				95p: double			# 95 percentile latency
-				99p: double			# 99 percentile latency
-			}
-		}
-		write {
-			ops: int64				# write operations performed
-			retries: int64			# retries done
-			successes: int64		# no of success operations
-			failures: int64			# no of failed operations
-			latency: {
-				avg: double			# average latency
-				min: double			# minimal latency
-				max: double			# maximal latency
-				95p: double			# 95 percentile latency
-				99p: double			# 99 percentile latency
-			}
-		}
-	}
-}
+
+    {
+        _id: ObjectId
+        datetime: date		# timestamp when the test was performed
+        name: string
+        tags: [ string, ... ]	# ALL tags applicable for this test
+        result: {
+            runtime: int64				# test runtime in ms
+            throughput: double			# test throughput in ops/sec
+            read {
+                ops: int64				# read operations performed
+                retries: int64			# retries done
+                successes: int64		# no of success operations
+                failures: int64			# no of failed operations
+                latency: {
+                    avg: double			# average latency
+                    min: double			# minimal latency
+                    max: double			# maximal latency
+                    95p: double			# 95 percentile latency
+                    99p: double			# 99 percentile latency
+                }
+            }
+            write {
+                ops: int64				# write operations performed
+                retries: int64			# retries done
+                successes: int64		# no of success operations
+                failures: int64			# no of failed operations
+                latency: {
+                    avg: double			# average latency
+                    min: double			# minimal latency
+                    max: double			# maximal latency
+                    95p: double			# 95 percentile latency
+                    99p: double			# 99 percentile latency
+                }
+            }
+        }
+    }
+
+---
 
 Test results collection
+---
+
 This draft is incomplete. The main question (suddenly, for Mongo) is how to normalize it. For example, OS and hardware are rarely changed between the tests, where can be hundreds of tests on the same hardware. So, this entities should be entered once and only referred. But number of records in the database, consistency settings, number of operations can be individual for each test. I.e. the next step should be to separate mostly constant and frequently changing data to optimize the DB structure.
 
-{
-	_id: ObjectId
-	datetime: date					# timestamp when the test was performed
-	test {
-		framework: {
-			name: string			# test framework name, for example "YCSB"
-			version: string			# test framework version
-			buildtime: date			# date of the latest build
-			tags: [string, ...]		# test framework tags
-		}
-		workload: {
-			name: string			# name of the workload
-			description: string		# description of the workload
-			ops: int64				# expected number of operations
-			readRatio: double		# ratio of read operations
-			writeRatio: double		# ratio of write operations
-			tags: [string, ...]		# test workload tags
-		}
-	}
-	servers: [						# array of server's info
-		{
-			hardware {
-				...
-			}
-			os {
-				...
-			}
-			database {
-				...
-			}
-			result: {
-				files: [fileref, ...]		# references to files
-			}
-		}, ...
-	]
-	clients: [						# array of clients's info
-		{
-			hardware {
-				...
-			}
-			os {
-				...
-			}
-			database {
-				...
-			}
-			result: {
-				runtime: int64		# test runtime on the client
-				throughput: double	# test throughput in ops/sec
-				...
-				files: [fileref, ...]		# references to files
-			}
-		}, ...
-	]
-	result: {
-		runtime: int64				# test runtime in ms
-		throughput: double			# test throughput in ops/sec
-		read {
-			ops: int64				# read operations performed
-			retries: int64			# retries done
-			successes: int64		# no of success operations
-			failures: int64			# no of failed operations
-			latency: {
-				avg: double			# average latency
-				min: double			# minimal latency
-				max: double			# maximal latency
-				95p: double			# 95 percentile latency
-				99p: double			# 99 percentile latency
-				distribution: [		# array of latency distribution intervals
-					{
-						end: double	# right open endpoint of the interval
-						ops: int64	# number of ops in the interval
-					}
-				]
-		}
-		write {
-			ops: int64				# write operations performed
-			retries: int64			# retries done
-			successes: int64		# no of success operations
-			failures: int64			# no of failed operations
-			...
-		}
-		files: [fileref, ...]		# references to files attached to the test
-	}
-}
+    {
+        _id: ObjectId
+        datetime: date					# timestamp when the test was performed
+        test {
+            framework: {
+                name: string			# test framework name, for example "YCSB"
+                version: string			# test framework version
+                buildtime: date			# date of the latest build
+                tags: [string, ...]		# test framework tags
+            }
+            workload: {
+                name: string			# name of the workload
+                description: string		# description of the workload
+                ops: int64				# expected number of operations
+                readRatio: double		# ratio of read operations
+                writeRatio: double		# ratio of write operations
+                tags: [string, ...]		# test workload tags
+            }
+        }
+        servers: [						# array of server's info
+            {
+                hardware {
+                    ...
+                }
+                os {
+                    ...
+                }
+                database {
+                    ...
+                }
+                result: {
+                    files: [fileref, ...]		# references to files
+                }
+            }, ...
+        ]
+        clients: [						# array of clients's info
+            {
+                hardware {
+                    ...
+                }
+                os {
+                    ...
+                }
+                database {
+                    ...
+                }
+                result: {
+                    runtime: int64		# test runtime on the client
+                    throughput: double	# test throughput in ops/sec
+                    ...
+                    files: [fileref, ...]		# references to files
+                }
+            }, ...
+        ]
+        result: {
+            runtime: int64				# test runtime in ms
+            throughput: double			# test throughput in ops/sec
+            read {
+                ops: int64				# read operations performed
+                retries: int64			# retries done
+                successes: int64		# no of success operations
+                failures: int64			# no of failed operations
+                latency: {
+                    avg: double			# average latency
+                    min: double			# minimal latency
+                    max: double			# maximal latency
+                    95p: double			# 95 percentile latency
+                    99p: double			# 99 percentile latency
+                    distribution: [		# array of latency distribution intervals
+                        {
+                            end: double	# right open endpoint of the interval
+                            ops: int64	# number of ops in the interval
+                        }
+                    ]
+            }
+            write {
+                ops: int64				# write operations performed
+                retries: int64			# retries done
+                successes: int64		# no of success operations
+                failures: int64			# no of failed operations
+                ...
+            }
+            files: [fileref, ...]		# references to files attached to the test
+        }
+    }
 
 
