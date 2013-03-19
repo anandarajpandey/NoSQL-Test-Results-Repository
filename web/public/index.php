@@ -65,7 +65,21 @@ try {
 		));
 	});
 
-	/**
+    /**
+     * Register the mongo db connection in the DI
+     */
+    $di->set('mongo', function() use ($config) {
+        $mongo = new Mongo($config->mongo->server);
+        return $mongo->selectDB($config->mongo->db);
+    }, true);
+    /**
+     * Register a collection manager
+     */
+    $di->set('collectionManager', function() {
+        return new Phalcon\Mvc\Collection\Manager();
+    }, true);
+
+    /**
 	 * If the configuration specify the use of metadata adapter use it or use memory otherwise
 	 */
 	$di->set('modelsMetadata', function() use ($config) {
