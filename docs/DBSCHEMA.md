@@ -8,6 +8,7 @@ Frequency of changes
 
 Below is the prediction of frequency of changes for each entity above. This information is used to normalize the database.
 
+entity                  | frequency
 ------------------------|--------------------------------------------------------
 TestResult              | 1 for 1 test
 TestFramework           | 1 for 1000 of tests
