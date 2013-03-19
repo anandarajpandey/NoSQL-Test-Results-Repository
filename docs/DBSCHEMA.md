@@ -8,6 +8,7 @@ Frequency of changes
 
 Below is the prediction of frequency of changes for each entity above. This information is used to normalize the database.
 
+------------------------|--------------------------------------------------------
 TestResult              | 1 for 1 test
 TestFramework           | 1 for 1000 of tests
 TestSettings            | 1 for 10 of tests
@@ -22,6 +23,7 @@ DatabaseServer          | 1 for 100 of tests
 DatabaseServerSettings  | 1 for 10 of tests
 Client                  | 1 for 10 of tests (aggregated from underlying entities)
 Server                  | 1 for 10 of tests (aggregated from underlying entities)
+
 
 The tags
 ========
@@ -83,6 +85,7 @@ Names
 -----
 
 Database: **performance**
+
 Test results collection: **results**
 
 Performance results collection (obligatory fields)
