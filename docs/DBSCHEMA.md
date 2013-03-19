@@ -1,7 +1,7 @@
 Entities
 ========
 
-![Database entities](http://plantuml.com/plantuml/img/nLJ1Ri8m3BqZyGyHnsbKsdKtn8GuC25Hf9szr42qqbPE2cA8Vr_SDZI1bkssKsi_v_dPiIDJq5giKPiLwZ8ruZmS2960GQFsoFzH5F77x2WljxkYD9wJ499bWGH6vPbc3noijSML1HQM99CdB_n8oc1d_0SZrmENuM0uy3IDnsBqCgfKpWZsUCpfgoyWHcDKjjNtU1GzZSGqLPYP7Z16idA6Wpg8WJbGSWH2txUCVUiD37o2HaVSXxIwwYmXU-jZzjPo74vP7zAoFwoxXPpGC3WiueR8iinKYhqfQYL-YbiF1uULzAUGrM3U2Jd_oopMOkuaTuYH87SuLwOYJ9J-gjZY0Z7fu6eOW2_E0xa73NGgC8227V1ZXB1ysfRIoUXlHdqgWtgzyw05AjD8PiKEDik2NuAhoIs-6dSvcidlBYbSXhyBxrwY-dnrXLEhNEdgiXPumDJfxFAxfwmlYNyfhZ--k4RlB-T3aOH5gcJLuHb8anCxLvFtLErLEp6n-iP72jrBKNFAebmtMcHEg1jAtP3msEbNCI62ayWtuip2dmN3bqxsPTnRCv3SsIvBKr85wICKJkp6Zga-sHxlRJQF-0S0)
+![Database entities](http://plantuml.com:80/plantuml/img/dLJ1Rjim3Bq7o3y8FXQjWLrxApe4FNGe40VecPDPHuXZ2nJT80toxvDaARPIEnjsaiGdFZvIf3J87LGeCaBJrMmoSLekbWjPWp5YWuRNtkwiGfJ0o6gFRjz0lp9KngtKDH7YBRLTjTKTUm2X5AUpsnv8CVhzUGZoN2ji-3hKVzCLI9z8rtGfXmIvnHV5NdYfpExTCHKQiKouLgh6u7_Kc40kG87CggbCVoKMfDL8mAfjFBjBubNj5VUreWfvasXHZK7YjVDmnqwx8b-EBjlBeI-r5n6MKPeF3oBxaNbTAx9I3YtjvYv4uT_nFB_BmelCW7rzbul-aWDUWCe348vjRyNuz1COVeF1I3o73BhwA2dxO7FimoboH6LpoC1-C-y1YaBJosaILqIMnJNDR8Zhxengqyjf9lCXnXqV-dHeaQ5FB_qmxcKXh9EnRJhf5bvecZDzj7yddNxitj_FyhCT6cKO6tbynK-iumHCsVCylnbaN9KuccDnGUzV_5EHXBfMqW_t2YItv8phfrzr773_iHJg2syfZ1tTSqhTRO8MsTfFE52QGE9-9_CedeZWADeFSNB2xuM3pvFiRyLipa1oQwiikICFcGFeAFR3jfGvsXhlRRGHyHy0)
 
 Frequency of changes
 ====================
@@ -85,7 +85,7 @@ Names
 Database: **performance**
 Test results collection: **results**
 
-Test results collection (reviewed)
+Performance results collection (obligatory fields)
 ----------------------------------
 
 This is the main collection used everywhere (from UI). So it should be strongly defined. Here is the definition.
