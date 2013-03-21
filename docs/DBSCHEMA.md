@@ -85,9 +85,10 @@ Collections
 Names
 -----
 
-Database: **performance**
+Performance test database: **performance**
 
 Test results collection: **results**
+Test environments collection: **environments**
 
 Performance results collection (obligatory fields)
 ----------------------------------
@@ -133,7 +134,7 @@ This is the main collection used everywhere (from UI). So it should be strongly 
 
 ---
 
-Test results collection
+Test results collection (DRAFT)
 ---
 
 This draft is incomplete. The main question (suddenly, for Mongo) is how to normalize it. For example, OS and hardware are rarely changed between the tests, where can be hundreds of tests on the same hardware. So, this entities should be entered once and only referred. But number of records in the database, consistency settings, number of operations can be individual for each test. I.e. the next step should be to separate mostly constant and frequently changing data to optimize the DB structure.
