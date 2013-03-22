@@ -88,7 +88,10 @@ Names
 Performance test database: **performance**
 
 Test results collection: **results**
+
 Test environments collection: **environments**
+
+Collection which holds just a document with ALL tags: **tags**
 
 Performance results collection (obligatory fields)
 ----------------------------------
