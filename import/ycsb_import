@@ -7,6 +7,9 @@ import dateutil.parser
 import pytz
 import bson.objectid
 
+from ycsb.mongo import Mongo
+from ycsb.results import Result
+
 def directory(string):
     try:
         for file in os.listdir(string):
@@ -41,13 +44,15 @@ parser.add_argument('--time', help='datetime of the test run in YYYY-MM-DDTHH:MM
     type=datetime_parse, nargs='?', default=datetime.now(), const=datetime.now())
 parser.add_argument('--time-zone', help='timezone for datetime', type=timezone_parse, nargs='?')
 parser.add_argument('-n', '--name', help='human-readable name of the test', nargs='?')
-parser.add_argument('-t', '--tag', help='tag to add to the test result (use multiple times)', nargs='*', action='append')
-parser.add_argument('--tags-file', help='read tags from the file, each tag in a line', type=argparse.FileType('r'), nargs='?')
+parser.add_argument('-t', '--tag', help='tag to add to the test result (use multiple times)', nargs='*')
+parser.add_argument('--tags-file', help='read tags from the file, each tag in a line',
+    type=argparse.FileType('r'), nargs='?')
 env_group = parser.add_mutually_exclusive_group()
 env_group.add_argument('-e', '--env-id', help='id of the environment', type=objectid_parse, nargs='?')
 env_group.add_argument('--env-file', help='json file for the new environment', type=argparse.FileType('r'), nargs='?')
+parser.add_argument('--mongo', help='mongoDB connection URI', nargs='?')
 
 args = parser.parse_args()
 
-print args
-#print args.time.strftime('%Y-%m-%dT%H:%M:%S%Z')
+result = Result(args)
+print result
