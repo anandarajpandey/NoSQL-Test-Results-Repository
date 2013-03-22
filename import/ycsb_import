@@ -1,0 +1,60 @@
+#!/usr/bin/python
+
+import os
+import argparse
+from datetime import datetime
+import dateutil.parser
+import pytz
+import bson.objectid
+
+from ycsb.mongo import Mongo
+from ycsb.results import Result
+
+def directory(string):
+    try:
+        for file in os.listdir(string):
+            if file.endswith('.out'):
+                return string
+    except:
+        raise argparse.ArgumentTypeError('%s is not a directory' % string)
+
+    raise argparse.ArgumentTypeError('no .out files in %s' % string)
+
+def timezone_parse(string):
+    try:
+        return pytz.timezone(string)
+    except:
+        raise argparse.ArgumentTypeError('%s is not a known timezone' % string)
+
+def datetime_parse(string):
+    try:
+        return dateutil.parser.parse(string)
+    except:
+        raise argparse.ArgumentTypeError('%s is not a datetime' % string)
+
+def objectid_parse(string):
+    try:
+        return bson.objectid.ObjectId(string)
+    except:
+        raise argparse.ArgumentTypeError('%s is not an ObjectId' % string)
+
+parser = argparse.ArgumentParser(description='Imports YCSB .out files into MongoDB')
+parser.add_argument('path', help='path to directory with .out files', type=directory, nargs='?', default='.')
+parser.add_argument('--time', help='datetime of the test run in YYYY-MM-DDTHH:MM:SS format',
+    type=datetime_parse, nargs='?', default=datetime.now(), const=datetime.now())
+parser.add_argument('--time-zone', help='timezone for datetime', type=timezone_parse, nargs='?')
+parser.add_argument('-n', '--name', help='human-readable name of the test', nargs='?')
+parser.add_argument('-t', '--tag', help='tag to add to the test result (use multiple times)', nargs='*')
+parser.add_argument('--tags-file', help='read tags from the file, each tag in a line',
+    type=argparse.FileType('r'), nargs='?')
+env_group = parser.add_mutually_exclusive_group()
+env_group.add_argument('-e', '--env-id', help='id of the environment', type=objectid_parse, nargs='?')
+env_group.add_argument('--env-file', help='json file for the new environment', type=argparse.FileType('r'), nargs='?')
+parser.add_argument('--mongo', help='mongoDB connection URI', nargs='?')
+
+args = parser.parse_args()
+
+result = Result(args)
+mongo = Mongo(args)
+
+print "inserted results: %s" % str(mongo.insert_result(result))
