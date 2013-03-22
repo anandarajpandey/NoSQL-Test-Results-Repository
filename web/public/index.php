@@ -1,7 +1,7 @@
 <?php
 
 error_reporting(E_ALL);
-
+ini_set('display_errors', 1);
 try {
 
 	/**
@@ -45,9 +45,9 @@ try {
 
         $view->setViewsDir($config->application->viewsDir);
 
-//        $view->registerEngines(array(
-//            ".phtml" => 'Phalcon\Mvc\View\Engine\Volt'
-//        ));
+        $view->registerEngines(array(
+            ".phtml" => 'Phalcon\Mvc\View\Engine\Volt'
+        ));
 
         return $view;
     });
@@ -56,14 +56,14 @@ try {
 	/**
 	 * Database connection is created based in the parameters defined in the configuration file
 	 */
-	$di->set('db', function() use ($config) {
+	/*$di->set('db', function() use ($config) {
 		return new \Phalcon\Db\Adapter\Pdo\Mysql(array(
 			"host" => $config->database->host,
 			"username" => $config->database->username,
 			"password" => $config->database->password,
 			"dbname" => $config->database->name
 		));
-	});
+	});*/
 
     /**
      * Register the mongo db connection in the DI
