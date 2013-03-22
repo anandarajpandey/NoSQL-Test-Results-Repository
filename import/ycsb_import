@@ -17,15 +17,15 @@ def directory(string):
 
     raise argparse.ArgumentTypeError('no .out files in %s' % string)
 
-def timezone(zone, offset):
-    if offset:
-        return int(offset)
-    else:
-        return pytz.timezone(zone)
+def timezone_parse(string):
+    try:
+        return pytz.timezone(string)
+    except:
+        raise argparse.ArgumentTypeError('%s is not a known timezone' % string)
 
 def datetime_parse(string):
     try:
-        return dateutil.parser.parse(string, tzinfos=timezone)
+        return dateutil.parser.parse(string)
     except:
         raise argparse.ArgumentTypeError('%s is not a datetime' % string)
 
@@ -37,8 +37,9 @@ def objectid_parse(string):
 
 parser = argparse.ArgumentParser(description='Imports YCSB .out files into MongoDB')
 parser.add_argument('path', help='path to directory with .out files', type=directory, nargs='?', default='.')
-parser.add_argument('--time', help='datetime of the test run in YYYY-MM-DDTHH:MM:SSZZZ format',
+parser.add_argument('--time', help='datetime of the test run in YYYY-MM-DDTHH:MM:SS format',
     type=datetime_parse, nargs='?', default=datetime.now(), const=datetime.now())
+parser.add_argument('--time-zone', help='timezone for datetime', type=timezone_parse, nargs='?')
 parser.add_argument('-n', '--name', help='human-readable name of the test', nargs='?')
 parser.add_argument('-t', '--tag', help='tag to add to the test result (use multiple times)', nargs='*', action='append')
 parser.add_argument('--tags-file', help='read tags from the file, each tag in a line', type=argparse.FileType('r'), nargs='?')
