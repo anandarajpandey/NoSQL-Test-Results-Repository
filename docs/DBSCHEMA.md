@@ -93,8 +93,10 @@ Test environments collection: **environments**
 
 Collection which holds just a document with ALL tags: **tags**
 
-Performance results collection (obligatory fields)
-----------------------------------
+**results** collection (obligatory fields)
+------------------------------------------
+
+This collection holds test results.
 
 This is the main collection used everywhere (from UI). So it should be strongly defined. Here is the definition.
 
@@ -133,6 +135,16 @@ This is the main collection used everywhere (from UI). So it should be strongly 
                 }
             }
         }
+    }
+
+**tags** collection
+-------------------
+
+This collection holds one document with full list of all tags and tag prefixes.
+
+    {
+        tags: [ string, string, ... ],
+        prefixes: [ string, string, ... ]
     }
 
 ---
