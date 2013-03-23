@@ -55,6 +55,7 @@ parser.add_argument('--mongo', help='mongoDB connection URI', nargs='?')
 args = parser.parse_args()
 
 result = Result(args)
-mongo = Mongo(args)
 
-print "inserted results: %s" % str(mongo.insert_result(result))
+mongo = Mongo(args)
+mongo.update_tags(result)
+mongo.insert_result(result)
