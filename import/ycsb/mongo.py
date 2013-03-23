@@ -7,4 +7,6 @@ class Mongo:
         self._db = pymongo.Connection(self._args.mongo, tz_aware=True).performance
 
     def insert_result(self, result):
-        return self._db.results.insert(result._doc)
+        oid = self._db.results.insert(result._doc)
+        print 'inserted result %s' % str(oid)
+        return oid

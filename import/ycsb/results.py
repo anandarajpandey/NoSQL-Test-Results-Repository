@@ -22,6 +22,7 @@ def _datetime(args):
 def _read_tags(args):
     if not args.tags_file:
         return
+    print 'reading tags from %s' % args.tags_file.name
     for line in args.tags_file:
         tag = line.strip()
         if len(tag) > 0:
