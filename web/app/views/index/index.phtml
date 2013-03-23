@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <div class="sidebar">
+    <select id="tags" class="tags" multiple data-placeholder="Select some tags">
+        {% for tag in tags %}
+        <option>{{tag}}</option>
+        {% endfor %}
+    </select>
+  </div>
+  <div class="charts"></div>
+</div>
