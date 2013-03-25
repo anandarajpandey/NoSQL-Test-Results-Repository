@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?=$title?></title>
-        <link rel="stylesheet" href="/css/styles.css">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
-        <script type="text/javascript" src="js/initial.js"></script>
+		<title><{{title}}</title>
+        {{ stylesheet_link("/css/chosen.css") }}
+        {{ stylesheet_link("/css/styles.css") }}
+        <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>-->
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/chosen.jquery.min.js"></script>
+        <script type="text/javascript" src="/js/initial.js"></script>
 	</head>
 	<body>
     <?php echo $this->getContent(); ?>

@@ -8,7 +8,7 @@ $config['application'] = array(
     'viewsDir'       => __DIR__ . '/../../app/views/',
     'pluginsDir'     => __DIR__ . '/../../app/plugins/',
     'libraryDir'     => __DIR__ . '/../../app/library/',
-    'baseUri'        => '/web/',
+    'baseUri'        => '',
 );
 $config['models'] = array(
     'metadata' => array(
