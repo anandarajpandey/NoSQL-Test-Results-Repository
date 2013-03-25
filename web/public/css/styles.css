@@ -3,18 +3,61 @@ html, body{
     padding: 0;
     margin: 0;
     background-image: url("/img/background.png");
+    overflow-x:hidden;
 }
 .sidebar{
     position: fixed;
     height: 100%;
-    width: 300px;
-    background-color: #222;
-    -webkit-box-shadow: 1px 0px 3px 1px #000;
-    box-shadow: 1px 0px 5px 2px #000;
+    left: 0;
+    top: 0;
+    width: 267px;
+    padding-right: 33px;
+    background-color: #333;
+    box-shadow: 1px 0px 3px 2px #222;
+    overflow: hidden;
+    -webkit-transition-property: left;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
 }
-.sidebar *{
-    opacity: 1.0;
+.sidebar.hidden{
+    left: -267px;
 }
+/*.sidebar.hidden *{
+    display: none;
+}*/
+.sidebar .trigger{
+    box-shadow: 1px 0px 3px 2px #222;
+    display: block;
+    height: 100%;
+    width: 32px;
+    position: absolute;
+    right: 0;
+    background-color: #444;
+    z-index: 10;
+    border-left: 1px solid #111;
+}
+.sidebar .trigger:hover{
+    cursor: pointer;
+}
+.sidebar .trigger .arrow{
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+    left: 8px;
+    width: 16px;
+    height: 16px;
+    background-image: url("/img/arrow_up.png");
+    background-repeat: no-repeat;
+    -webkit-transform: rotate(270deg);
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.2s;
+    -webkit-transition-timing-function: linear;
+    -webkit-transition-delay: 0.5s;
+}
+.sidebar.hidden .trigger .arrow{
+    -webkit-transform: rotate(90deg);
+}
+
 .sidebar h2{
     text-align: center;
 }
@@ -30,4 +73,8 @@ html, body{
 #tags_chzn{
     margin: 10px auto;
     display: block;
+    width: 80% !important;
+}
+.search_tests_button {
+    margin-left: 80px;
 }
