@@ -23,12 +23,14 @@ class Mongo:
         self._db = pymongo.Connection(self._args.mongo, tz_aware=True).performance
 
     def update_tags(self, result):
-        tagsdoc = self._db.tags.find_one()
-        if not tagsdoc:
-            tagsdoc = { 'tags': [], 'prefixes': [] }
-        tagsdoc['tags'] = list(set(tagsdoc['tags']).union(result.tags()))
-        tagsdoc['prefixes'] = list(set(tagsdoc['prefixes']).union(result.tag_prefixes()))
-        self._db.tags.save(tagsdoc)
+        tags_update_doc = {
+            '$addToSet': {
+                'tags' : { '$each': result.tags() },
+                'prefixes': { '$each': result.tag_prefixes() }
+            }
+        }
+        print tags_update_doc
+        self._db.tags.update({}, tags_update_doc)
         print 'updated tags'
 
     def insert_result(self, result):

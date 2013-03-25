@@ -35,14 +35,15 @@ class Result:
     def tags(self):
         if not self._resultdoc.has_key('tags'):
             return
-        for tag in self._resultdoc['tags']:
-            yield tag
+        return self._resultdoc['tags']
 
     def tag_prefixes(self):
         if not self._resultdoc.has_key('tags'):
-            return
+            return []
+        prefixes = set()
         for tag in self._resultdoc['tags']:
-            yield tag.split('-')[0]
+            prefixes.add(tag.split('-')[0])
+        return list(prefixes)
 
     def __str__(self):
         return str(self._resultdoc)
