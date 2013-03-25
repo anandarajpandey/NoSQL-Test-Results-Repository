@@ -29,7 +29,7 @@ class Mongo:
                 'prefixes': { '$each': result.tag_prefixes() }
             }
         }
-        print tags_update_doc
+        #print tags_update_doc
         self._db.tags.update({}, tags_update_doc)
         print 'updated tags'
 

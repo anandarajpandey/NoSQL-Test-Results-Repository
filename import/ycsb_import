@@ -25,6 +25,7 @@ import bson.objectid
 
 from lib.mongo import Mongo
 from lib.results import Result
+from lib import ycsb
 
 def directory(string):
     try:
@@ -71,6 +72,7 @@ parser.add_argument('--mongo', help='mongoDB connection URI', nargs='?')
 args = parser.parse_args()
 
 result = Result(args)
+ycsb.parse_results(args, result)
 
 mongo = Mongo(args)
 mongo.update_tags(result)

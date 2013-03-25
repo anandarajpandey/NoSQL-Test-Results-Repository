@@ -16,6 +16,9 @@
 
 import os
 import re
+import datetime
+
+from results import Result
 
 
 def avg(seq):
@@ -84,7 +87,7 @@ def total(metric_values, metric):
 #            row.append(aggregate(metrics_values, metric))
 #    return row
 
-def merge(args, result):
+def parse_results(args, result):
     """grabs all *.out, extract statistics from there and merge into result"""
     ##ops_keys = operations.keys()
     regexps = map(re.compile, metrics)
@@ -93,12 +96,13 @@ def merge(args, result):
     prefixes = map(lambda mt: str(re.search('\w+', mt).group(0)), metrics)
     # other stuff
     stats = NestedDict()
-    items = filter(lambda x: str(x).endswith('.out'), os.listdir(args.path))
+    items = sorted(filter(lambda x: str(x).endswith('.out'), os.listdir(args.path)))
     pcn = re.compile(r'.*?-c(\d)\.out')
     pln = re.compile(r'\[(\w+)\], (.*?), (\d+(\.\d+)?([eE]\d+)?)')
     # gather stats from all files=items
     for item in items:
-        with open(item) as file:
+        print 'reading %s' % item
+        with open(os.path.join(args.path, item)) as file:
             m0 = pcn.search(item)
             if m0:
                 value = m0.group(1)
@@ -133,10 +137,11 @@ def merge(args, result):
     #        lambda mt, ost: current(mt, ost))
     #    print(tab_str(row))
     # now write the totals
-    result['result']['runtime'] = total(stats['OVERALL'], 'RunTime')
-    result['result']['throughput'] = total(stats['OVERALL'], 'Throughput')
-    result['result']['read'] = operation_stats(stats['READ'])
-    result['result']['write'] = operation_stats(stats['UPDATE'])
+    resultdoc = result.resultdoc()
+    resultdoc['result']['runtime'] = total(stats['OVERALL'], 'RunTime')
+    resultdoc['result']['throughput'] = total(stats['OVERALL'], 'Throughput')
+    resultdoc['result']['read'] = operation_stats(stats['READ'])
+    resultdoc['result']['write'] = operation_stats(stats['UPDATE'])
 
 def operation_stats(metrics_values):
     stats = {}
@@ -154,8 +159,13 @@ def operation_stats(metrics_values):
 
 if __name__=='__main__':
     class DummyArgs:
-        def __init__(self):
-            self.path = '.'
-    result = { 'result': {} }
-    merge(DummyArgs(), result)
+        def __getattr__(self, item):
+            if item == 'path':
+                return '.'
+            if item == 'time':
+                return datetime.datetime.now()
+            return None
+    args = DummyArgs()
+    result = Result(args)
+    parse_results(args, result)
     print result
