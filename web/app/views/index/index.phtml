@@ -1,10 +1,12 @@
 <div class="wrapper">
   <div class="sidebar">
+      <div class="trigger"><div class="arrow"></div></div>
     <select id="tags" class="tags" multiple data-placeholder="Select some tags">
         {% for tag in tags %}
         <option>{{tag}}</option>
         {% endfor %}
     </select>
+      <button class="button search_tests_button"><span class="icon icon19"></span><span class="label">Search tests</span></button>
   </div>
   <div class="charts"></div>
 </div>
