@@ -23,8 +23,8 @@ import dateutil.parser
 import pytz
 import bson.objectid
 
-from ycsb.mongo import Mongo
-from ycsb.results import Result
+from lib.mongo import Mongo
+from lib.results import Result
 
 def directory(string):
     try:
