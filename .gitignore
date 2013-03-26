@@ -2,3 +2,4 @@
 .idea
 *.loc.php
 *.phtml.php
+*.pyc

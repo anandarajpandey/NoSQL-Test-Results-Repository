@@ -154,7 +154,8 @@ This collection holds any environment descriptions which can be shared between m
 The only obligatory field here is 'tags'. The tags are copied to the 'results' collection if the test was performed in this environment.
 
     {
-        _id: ObjectId,
+        _id: ObjectId
+        name: string
         tags: [ string, string, ... ]
     }
 
