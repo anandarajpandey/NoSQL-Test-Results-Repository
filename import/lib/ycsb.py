@@ -142,6 +142,7 @@ def parse_results(args, result):
     resultdoc['result']['throughput'] = total(stats['OVERALL'], 'Throughput')
     resultdoc['result']['read'] = operation_stats(stats['READ'])
     resultdoc['result']['write'] = operation_stats(stats['UPDATE'])
+    #TODO inserts on load phase
 
 def operation_stats(metrics_values):
     stats = {}
