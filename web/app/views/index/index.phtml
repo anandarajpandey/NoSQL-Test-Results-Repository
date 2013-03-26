@@ -2,11 +2,35 @@
   <div class="sidebar">
       <div class="trigger"><div class="arrow"></div></div>
     <select id="tags" class="tags" multiple data-placeholder="Select some tags">
-        {% for tag in tags %}
-        <option>{{tag}}</option>
-        {% endfor %}
+        <optgroup label="tags">
+            {% for tag in tags %}
+            <option>{{tag}}</option>
+            {% endfor %}
+        </optgroup>
+        <optgroup label="prefixes">
+            {% for prefix in tags_prefixes %}
+            <option>{{prefix}}</option>
+            {% endfor %}
+        </optgroup>
     </select>
       <button class="button search_tests_button"><span class="icon icon19"></span><span class="label">Search tests</span></button>
   </div>
-  <div class="charts"></div>
+  <div class="last_tests">
+      <h2>Last tests</h2>
+      <ol>
+          {% for result in results %}
+              <li>{{result.name}} |
+                  {% if result.result is empty %}
+                      no result value
+                  {% else %}
+                      {% if result.result['runtime'] is empty %}
+                          no runtime value
+                      {% else %}
+                          {{result.result['runtime']}}
+                      {% endif %}
+                  {% endif %}
+              </li>
+          {% endfor %}
+      </ol>
+  </div>
 </div>
