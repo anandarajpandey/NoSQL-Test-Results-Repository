@@ -37,3 +37,11 @@ class Mongo:
         oid = self._db.results.insert(result.resultdoc())
         print 'inserted result %s' % str(oid)
         return oid
+
+    def read_env(self, oid):
+        return self._db.environments.find_one( { '_id': oid })
+
+    def insert_env(self, envdoc):
+        oid = self._db.environments.insert(envdoc)
+        print 'inserted environment %s' % str(oid)
+        return oid

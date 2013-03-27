@@ -55,25 +55,31 @@ def objectid_parse(string):
     except:
         raise argparse.ArgumentTypeError('%s is not an ObjectId' % string)
 
-parser = argparse.ArgumentParser(description='Imports YCSB .out files into MongoDB')
-parser.add_argument('path', help='path to directory with .out files', type=directory, nargs='?', default='.')
-parser.add_argument('--time', help='datetime of the test run in YYYY-MM-DDTHH:MM:SS format',
-    type=datetime_parse, nargs='?', default=datetime.now(), const=datetime.now())
-parser.add_argument('--time-zone', help='timezone for datetime', type=timezone_parse, nargs='?')
-parser.add_argument('-n', '--name', help='human-readable name of the test', nargs='?')
-parser.add_argument('-t', '--tag', help='tag to add to the test result (use multiple times)', nargs='*')
-parser.add_argument('--tags-file', help='read tags from the file, each tag in a line',
-    type=argparse.FileType('r'), nargs='?')
-env_group = parser.add_mutually_exclusive_group()
-env_group.add_argument('-e', '--env-id', help='id of the environment', type=objectid_parse, nargs='?')
-env_group.add_argument('--env-file', help='json file for the new environment', type=argparse.FileType('r'), nargs='?')
-parser.add_argument('--mongo', help='mongoDB connection URI', nargs='?')
 
-args = parser.parse_args()
+def ycsb_import(args):
+    mongo = Mongo(args)
 
-result = Result(args)
-ycsb.parse_results(args, result)
+    result = Result(args, mongo)
+    ycsb.parse_results(args, result)
 
-mongo = Mongo(args)
-mongo.update_tags(result)
-mongo.insert_result(result)
+    mongo.update_tags(result)
+    mongo.insert_result(result)
+
+
+if __name__=='__main__':
+    parser = argparse.ArgumentParser(description='Imports YCSB .out files into MongoDB')
+    parser.add_argument('path', help='path to directory with .out files', type=directory, nargs='?', default='.')
+    parser.add_argument('--time', help='datetime of the test run in YYYY-MM-DDTHH:MM:SS format',
+        type=datetime_parse, nargs='?', default=datetime.now(), const=datetime.now())
+    parser.add_argument('--time-zone', help='timezone for datetime', type=timezone_parse, nargs='?')
+    parser.add_argument('-n', '--name', help='human-readable name of the test', nargs='?')
+    parser.add_argument('-t', '--tag', help='tag to add to the test result (use multiple times)', nargs='*')
+    parser.add_argument('--tags-file', help='read tags from the file, each tag in a line',
+        type=argparse.FileType('r'), nargs='?')
+    env_group = parser.add_mutually_exclusive_group()
+    env_group.add_argument('-e', '--env-id', help='id of the environment', type=objectid_parse, nargs='?')
+    env_group.add_argument('--env-file', help='json file for the new environment', type=argparse.FileType('r'), nargs='?')
+    parser.add_argument('--mongo', help='mongoDB connection URI', nargs='?')
+
+    args = parser.parse_args()
+    ycsb_import(args)

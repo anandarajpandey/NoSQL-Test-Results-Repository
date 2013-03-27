@@ -169,6 +169,7 @@ The results collection can hold any other data which relates to the test. These 
         datetime: date					# timestamp when the test was performed
         name: string
         tags: [ string, ... ]	        # ALL tags applicable for this test
+        env_ref: ObjectId
         result: {
             runtime: int64				# test runtime in ms
             throughput: double			# test throughput in ops/sec

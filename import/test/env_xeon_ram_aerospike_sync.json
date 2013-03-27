@@ -29,6 +29,16 @@
         "DataSetFields-10",
         "YCSBFieldLength-10",
         "DataSetRecordSize-1kB",
+        "TestClientThreads-32",
+        "YCSBThreadCount-32",
+
+        "TestReadRetries-1000",
+        "TestWriteRetries-1000",
+        "TestRetryDelay-1ms",
+        "YCSBReadRetryCount-1000",
+        "YCSBUpdateRetryCount-1000",
+        "YCSBInsertRetryCount-1000000000",
+        "YCSBRetryDelay-1",
 
         "Clients-8",
         "Servers-4",
@@ -41,6 +51,12 @@
         "ClientOS-Ubuntu 12.04 LTS",
         "ClientUbuntuVersion-12.04",
         "ClientJavaVersion-Oracle JDK 7u9",
+
+        "ServerSSDIOScheduler-noop",
+        "ServerUlimitsNoFile-16384",
+        "ServerIRQBalance-stop",
+        "ServerNICMultiqueue-8",
+        "ServerSSDReadAhead-8",
 
         "ServerCPUs-1",
         "ServerCPUCores-8",

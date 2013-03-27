@@ -14,9 +14,11 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
+
 class Result:
 
-    def __init__(self, args):
+    def __init__(self, args, mongo=None):
         """Inits document for the results collection"""
         self._resultdoc = {
             'datetime': _datetime(args),
@@ -24,18 +26,18 @@ class Result:
             'tags': [],
             'result': {},
         }
-        #TODO result['tags'].extend(_get_env_tags(args))
-        self._resultdoc['tags'].extend(_read_tags(args))
+        (env_id, env_tags) = _get_env_tags(args, mongo)
+        self._resultdoc['env_ref'] = env_id
+        self._resultdoc['tags'].extend(uniq(env_tags))
+        self._resultdoc['tags'].extend(uniq(_read_tags(args)))
         if args.tag:
-            self._resultdoc['tags'].extend(args.tag)
+            self._resultdoc['tags'].extend(uniq(args.tag))
 
     def resultdoc(self):
         return self._resultdoc
 
     def tags(self):
-        if not self._resultdoc.has_key('tags'):
-            return
-        return self._resultdoc['tags']
+        return self._resultdoc.get('tags') or []
 
     def tag_prefixes(self):
         if not self._resultdoc.has_key('tags'):
@@ -48,6 +50,9 @@ class Result:
     def __str__(self):
         return str(self._resultdoc)
 
+def uniq(seq):
+    return list(set(seq))
+
 def _datetime(args):
     return args.time.replace(tzinfo=args.time_zone)
 
@@ -59,3 +64,21 @@ def _read_tags(args):
         tag = line.strip()
         if len(tag) > 0:
             yield tag
+
+def _get_env_tags(args, mongo):
+    if not mongo:
+        return None, []
+    if args.env_id:
+        envdoc = mongo.read_env(args.env_id)
+        if not envdoc:
+            print 'environment %s is not found' % args.env_id
+            return None, []
+        else:
+            print 'using environment %s' % args.env_id
+            return args.env_id, envdoc.get('tags') or []
+    elif args.env_file:
+        print 'reading environment from %s' % args.env_file.name
+        envdoc = json.load(args.env_file)
+        oid = mongo.insert_env(envdoc)
+        return oid, envdoc.get('tags') or []
+
