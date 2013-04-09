@@ -78,3 +78,7 @@ html, body{
 .search_tests_button {
     margin-left: 80px;
 }
+#chart{
+    height: 320px;
+    width: 720px;
+}
