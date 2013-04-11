@@ -8,7 +8,7 @@ class ApiController extends ControllerBase
     }
 
     public  function getColumnChartDataAction(){
-        echo json_encode(array("test"=>"1"));
+        echo json_encode(Charts::getColumnChartData($_GET['tests'], $_GET['axes'], $_GET['group']));
         exit();
     }
 

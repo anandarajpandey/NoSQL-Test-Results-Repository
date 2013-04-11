@@ -1,3 +1,6 @@
 var config = {
-    'logger' : false
+    'logger' : {
+        showTime : true
+    },
+    startTime : new Date().getTime()
 }

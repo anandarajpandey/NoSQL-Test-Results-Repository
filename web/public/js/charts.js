@@ -1,3 +1,5 @@
+google.load("visualization", "1", {packages:["corechart"]});
+
 var Chart = function(source){
 
     if(!source){
@@ -24,22 +26,15 @@ var Chart = function(source){
 
     var drawChart = function(data, $container){
         Log.add("start drow chart");
-        $.plot($container,[
-                { label: "Bar1", data: [ [2,10], [6,20] , [10, 30]], bars : {show : true} },
-                { label: "Bar2", data: [ [1,1], [5,22] , [9, 23]], bars : {show : true} },
-                { label: "Bar2", data: [ [3,3], [7,40] , [11, 25]], bars : {show : true} }
-        ],
-            {
-                grid: {
-                    hoverable: true,
-                    autoHighlight: true,
-                    backgroundColor: '#222'
-                },
-                bars : {
-                    barWidth:0.5
-                }
-            }
-        );
+        data = google.visualization.arrayToDataTable(data);
+        var options = {
+            title: 'Performance',
+            hAxis: {title: 'Database', titleTextStyle: {color: 'red'}}
+        };
+
+        var gchart = new google.visualization.ColumnChart(document.getElementById('chart'));
+        gchart.draw(data, options);
+
     };
 
     var drawLoader = function($container){
