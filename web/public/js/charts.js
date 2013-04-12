@@ -29,7 +29,7 @@ var Chart = function(source){
         data = google.visualization.arrayToDataTable(data);
         var options = {
             title: 'Performance',
-            hAxis: {title: 'Database', titleTextStyle: {color: 'red'}}
+            hAxis: {title: 'Test', titleTextStyle: {color: 'red'}}
         };
 
         var gchart = new google.visualization.ColumnChart(document.getElementById('chart'));

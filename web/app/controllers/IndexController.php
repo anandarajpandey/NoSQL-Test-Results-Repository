@@ -14,7 +14,7 @@ class IndexController extends ControllerBase
         $this->view->setVar("tags_prefixes", $prefixes);
 
         $results = array();
-        $results_resourse = Results::find(array("limit" => 10, "sort" => array("datetime" => -1)));
+        $results_resourse = Results::find(array("limit" => 10, "sort" => array("datetime" => 1)));
         foreach($results_resourse as $result){
             $results[] = $result;
         }

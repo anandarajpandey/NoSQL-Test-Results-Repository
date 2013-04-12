@@ -18,21 +18,33 @@
   </div>
   <div class="last_tests">
       <h2>Latest tests</h2>
-      <ol>
+      <table class="tests_table">
+          <thead>
+              <tr>
+                  <td rowspan="2">Test</td>
+                  <td colspan="2">Read</td>
+                  <td colspan="2">Write</td>
+              </tr>
+              <tr>
+                  <td>Operations</td>
+                  <td>Successes</td>
+                  <td>Operations</td>
+                  <td>Successes</td>
+              </tr>
+          </thead>
           {% for result in results %}
-              <li>{{result.name}} |
-                  {% if result.result is empty %}
-                      no result value
-                  {% else %}
-                      {% if result.result['runtime'] is empty %}
-                          no runtime value
-                      {% else %}
-                          {{result.result['runtime']}}
-                      {% endif %}
-                  {% endif %}
-              </li>
+              {% if result.result is  empty %}
+              {% else %}
+                  <tr>
+                      <td>{{result.name}} </td>
+                      <td>{{result.result['read']['ops']}}</td>
+                      <td>{{result.result['read']['successes']}}</td>
+                      <td>{{result.result['write']['ops']}}</td>
+                      <td>{{result.result['write']['successes']}}</td>
+                  </tr>
+              {% endif %}
           {% endfor %}
-      </ol>
+      </table>
       <div id="chart"></div>
   </div>
 </div>
