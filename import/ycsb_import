@@ -83,7 +83,9 @@ if __name__=='__main__':
     env_group = parser.add_mutually_exclusive_group()
     env_group.add_argument('-e', '--env-id', help='id of the environment', type=objectid_parse, nargs='?')
     env_group.add_argument('--env-file', help='json file for the new environment', type=argparse.FileType('r'), nargs='?')
+    parser.add_argument('--no-files', help='don\'t copy files from path to GridFS', action='store_true')
     parser.add_argument('--mongo', help='mongoDB connection URI', nargs='?')
 
     args = parser.parse_args()
+    #print vars(args)
     ycsb_import(args)

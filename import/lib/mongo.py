@@ -66,6 +66,8 @@ class Mongo:
     def put_files(self):
         """Puts all files in the path defined in arguments to GridFS.
         Returns list of oids of just inserted files."""
+        if self._args.no_files:
+            return []
         files = sorted(os.listdir(self._args.path))
         fs = gridfs.GridFS(self._db)
         oids = []
