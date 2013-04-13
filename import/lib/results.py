@@ -81,4 +81,6 @@ def _get_env_tags(args, mongo):
         envdoc = json.load(args.env_file)
         oid = mongo.insert_env(envdoc)
         return oid, envdoc.get('tags') or []
+    else:
+        return None, []
 
