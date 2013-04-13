@@ -24,6 +24,7 @@
                   <td rowspan="2">Test</td>
                   <td colspan="2">Read</td>
                   <td colspan="2">Write</td>
+                  <td rowspan="2">Throughput</td>
               </tr>
               <tr>
                   <td>Operations</td>
@@ -41,6 +42,7 @@
                       <td>{{result.result['read']['successes']}}</td>
                       <td>{{result.result['write']['ops']}}</td>
                       <td>{{result.result['write']['successes']}}</td>
+                      <td>{{result.result['throughput']}}</td>
                   </tr>
               {% endif %}
           {% endfor %}
