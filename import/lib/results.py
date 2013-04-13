@@ -33,6 +33,9 @@ class Result:
         if args.tag:
             self._resultdoc['tags'].extend(uniq(args.tag))
 
+    def add_files(self, files):
+        self._resultdoc['files'] = files
+
     def resultdoc(self):
         return self._resultdoc
 
