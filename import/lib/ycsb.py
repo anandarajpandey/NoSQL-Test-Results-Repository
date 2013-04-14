@@ -79,6 +79,19 @@ def total(metric_values, metric):
     except ValueError:
         return None # eg max on empty seq
 
+def one(metric_values, metric, client):
+    try:
+        result = metric_values[metric][client]
+        return result or 0.0
+    except ValueError:
+        return 0.0
+
+def get_metric(metric_values, metric, client=None):
+    if client:
+        return one(metric_values, metric, client)
+    else:
+        return total(metric_values, metric)
+
 #def phorm(operations, stats, title, aggregate):
 #    row = [title]
 #    ops_keys = operations.keys()
@@ -96,6 +109,7 @@ def parse_results(args, result):
     prefixes = map(lambda mt: str(re.search('\w+', mt).group(0)), metrics)
     # other stuff
     stats = NestedDict()
+    clients = []
     items = sorted(filter(lambda x: str(x).endswith('.out'), os.listdir(args.path)))
     pcn = re.compile(r'.*?-c(\d)\.out')
     pln = re.compile(r'\[(\w+)\], (.*?), (\d+(\.\d+)?([eE]\d+)?)')
@@ -105,7 +119,8 @@ def parse_results(args, result):
         with open(os.path.join(args.path, item)) as file:
             m0 = pcn.search(item)
             if m0:
-                value = m0.group(1)
+                client = m0.group(1)
+                clients.append(client)
                 for line in file:
                     for i in range(len(prefixes)):
                         pr = prefixes[i]
@@ -117,48 +132,50 @@ def parse_results(args, result):
                                 # cl = m2.group(2) # column
                                 metric = metrics[i]
                                 transform = fold_functions[metric][1]
-                                if stats[operation][metric][value]:
-                                    stats[operation][metric][value] += transform(float(m2.group(3)))
+                                if stats[operation][metric][client]:
+                                    stats[operation][metric][client] += transform(float(m2.group(3)))
                                 else:
-                                    stats[operation][metric][value] = transform(float(m2.group(3)))
+                                    stats[operation][metric][client] = transform(float(m2.group(3)))
     # stats is the dictionary like this:
     #OVERALL RunTime {'1': 1500.0, '3': 2295.0, '2': 1558.0, '4': 2279.0}
     # ...
     #UPDATE Return=1 {'1': 477.0, '3': 488.0, '2': 514.0, '4': 522.0}
-    # print stats
-    # write the values for each client
-    #def current(mt, ostt):
-    #    if str(cn) in ostt[mt]:
-    #        return ostt[mt][str(cn)]
-    #    else:
-    #        return ''
-    #for cn in cns:
-    #    row = phorm(ops, stats, str(cn),
-    #        lambda mt, ost: current(mt, ost))
-    #    print(tab_str(row))
-    # now write the totals
+    #print stats
     resultdoc = result.resultdoc()
     resultdoc['result']['runtime'] = total(stats['OVERALL'], 'RunTime')
     resultdoc['result']['throughput'] = total(stats['OVERALL'], 'Throughput')
     resultdoc['result']['read'] = operation_stats(stats['READ'])
     resultdoc['result']['write'] = operation_stats(stats['UPDATE'])
+    client_results = []
+    for client in sorted(clients):
+        client_results.append(client_stats(stats, client))
+    resultdoc['clients'] = client_results
     #TODO inserts on load phase
 
-def operation_stats(metrics_values):
+def operation_stats(metrics_values, client=None):
     stats = {}
-    stats['ops'] = total(metrics_values, 'Operations')
-    stats['retries'] = total(metrics_values, 'Retries')
-    stats['successes'] = total(metrics_values, 'Return=0')
-    stats['failures'] = total(metrics_values, 'Return=[^0].*')
+    stats['ops'] = get_metric(metrics_values, 'Operations', client)
+    stats['retries'] = get_metric(metrics_values, 'Retries', client)
+    stats['successes'] = get_metric(metrics_values, 'Return=0', client)
+    stats['failures'] = get_metric(metrics_values, 'Return=[^0].*', client)
     latency = stats['latency'] = {}
-    latency['avg'] = total(metrics_values, 'AverageLatency')
-    latency['min'] = total(metrics_values, 'MinLatency')
-    latency['max'] = total(metrics_values, 'MaxLatency')
-    latency['p95'] = total(metrics_values, '95thPercentileLatency')
-    latency['p99'] = total(metrics_values, '99thPercentileLatency')
+    latency['avg'] = get_metric(metrics_values, 'AverageLatency', client)
+    latency['min'] = get_metric(metrics_values, 'MinLatency', client)
+    latency['max'] = get_metric(metrics_values, 'MaxLatency', client)
+    latency['p95'] = get_metric(metrics_values, '95thPercentileLatency', client)
+    latency['p99'] = get_metric(metrics_values, '99thPercentileLatency', client)
     return stats
 
+def client_stats(stats, client):
+    resultdoc = { 'result': {} }
+    resultdoc['result']['runtime'] = one(stats['OVERALL'], 'RunTime', client)
+    resultdoc['result']['throughput'] = one(stats['OVERALL'], 'Throughput', client)
+    resultdoc['result']['read'] = operation_stats(stats['READ'], client)
+    resultdoc['result']['write'] = operation_stats(stats['UPDATE'], client)
+    return resultdoc
+
 if __name__=='__main__':
+    import pprint
     class DummyArgs:
         def __getattr__(self, item):
             if item == 'path':
@@ -169,4 +186,4 @@ if __name__=='__main__':
     args = DummyArgs()
     result = Result(args)
     parse_results(args, result)
-    print result
+    print pprint.pprint(result.resultdoc())
