@@ -1,0 +1,35 @@
+<table class="tests_table">
+    <thead>
+    <tr>
+        <td rowspan="2" colspan="2">Test</td>
+        <td colspan="2">Read</td>
+        <td colspan="2">Write</td>
+        <td rowspan="2">Throughput</td>
+    </tr>
+    <tr>
+        <td>Operations</td>
+        <td>Successes</td>
+        <td>Operations</td>
+        <td>Successes</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for result in results %}
+        {% if result.result is  empty %}
+        {% else %}
+            <tr class="test_row">
+                <td><input type="checkbox" id="{{result._id}}" class="test"></td>
+                <td>{{result.name}} </td>
+                <td>{{result.result['read']['ops']}}</td>
+                <td>{{result.result['read']['successes']}}</td>
+                <td>{{result.result['write']['ops']}}</td>
+                <td>{{result.result['write']['successes']}}</td>
+                <td>{{result.result['throughput']}}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    <tr>
+        <td colspan="7"><button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button></td>
+    </tr>
+    </tbody>
+</table>
