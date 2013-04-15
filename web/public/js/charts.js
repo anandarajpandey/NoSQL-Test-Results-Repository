@@ -1,12 +1,13 @@
 google.load("visualization", "1", {packages:["corechart"]});
 
-var Chart = function(source){
+var Chart = function(source, $container){
 
     if(!source){
         throw Error("no source for chart");
     }
 
     var data = {};
+    var _$container = $container;
 
     (function getData(){
         $.ajax({
@@ -37,20 +38,20 @@ var Chart = function(source){
 
     };
 
-    var drawLoader = function($container){
+    var drawLoader = function(){
         Log.add("wait of response");
-        $container.html("loading");
-    }
+        _$container.html("loading");
+    };
 
     return {
-        'draw' : function($container){
-            if($container){
+        'draw' : function(){
+            if(_$container){
                 if(data.length > 0){
-                    drawChart(data, $container);
+                    drawChart(data, _$container);
                 }else{
-                    drawLoader($container);
+                    drawLoader(_$container);
                     $(document).on("gotChartData", function(e, response){
-                        drawChart(response, $container);
+                        drawChart(response, _$container);
                         $(document).off("gotChartData");
                     });
                 }
@@ -59,6 +60,12 @@ var Chart = function(source){
                 Log.add("jQuery container for chart not found");
                 return false;
             }
+        },
+        'setError' : function(html){
+            _$container.html(html);
+        },
+        'setContainer' : function($container){
+             _$container = $container;
         }
     }
 };

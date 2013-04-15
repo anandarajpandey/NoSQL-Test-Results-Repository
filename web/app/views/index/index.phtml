@@ -1,24 +1,3 @@
-<div class="wrapper">
-  <div class="sidebar">
-      <div class="trigger"><div class="arrow"></div></div>
-    <select id="tags" class="tags" multiple data-placeholder="Select some tags">
-        <optgroup label="tags">
-            {% for tag in tags %}
-            <option>{{tag}}</option>
-            {% endfor %}
-        </optgroup>
-        <optgroup label="prefixes">
-            {% for prefix in tags_prefixes %}
-            <option>{{prefix}}</option>
-            {% endfor %}
-        </optgroup>
-    </select>
-      <button class="button search_tests_button"><span class="icon icon19"></span><span class="label">Search tests</span></button>
-      <button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button>
-  </div>
-  <div class="last_tests">
-      <h2>Latest tests</h2>
-      <?php $this->partial("results/search_results"); ?>
-      <div id="chart"></div>
-  </div>
+<div id="content">
+<h2>About with site</h2>
 </div>

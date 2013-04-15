@@ -15,6 +15,27 @@
         <script type="text/javascript" src="/js/initial.js"></script>
 	</head>
 	<body>
-    <?php echo $this->getContent(); ?>
+    <div class="wrapper">
+        <div class="header">
+
+            <div class="top_menu">
+                <span class="menu_item">{{ link_to("/", "About") }}</span>
+                <span class="menu_item">{{ link_to("/results", "Latest results") }}</span>
+                <span class="menu_item">{{ link_to("/results/search", "Search results") }}</span>
+                <span class="menu_item">{{ link_to("/help", "Help me") }}</span>
+            </div>
+        </div>
+        <div class="content">
+        <?php echo $this->getContent(); ?>
+        </div>
+        <div class="footer">
+            <div class="bottom_menu">
+                <span class="menu_item">{{ link_to("/", "About") }}</span>
+                <span class="menu_item">{{ link_to("/results", "Latest results") }}</span>
+                <span class="menu_item">{{ link_to("/results/search", "Search results") }}</span>
+                <span class="menu_item">{{ link_to("/help", "Help me") }}</span>
+            </div>
+        </div>
+    </div>
 	</body>
 </html>

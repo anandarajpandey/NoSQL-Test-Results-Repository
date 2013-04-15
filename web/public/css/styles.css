@@ -5,74 +5,32 @@ html, body{
     background-image: url("/img/background.png");
     overflow-x:hidden;
 }
-.sidebar{
-    position: fixed;
+.wrapper{
     height: 100%;
-    left: 0;
-    top: 0;
-    width: 267px;
-    padding-right: 33px;
-    background-color: #333;
-    box-shadow: 1px 0px 3px 2px #222;
-    overflow: hidden;
-    -webkit-transition-property: left;
-    -webkit-transition-duration: 0.5s;
-    -webkit-transition-timing-function: ease-in-out;
 }
-.sidebar.hidden{
-    left: -267px;
+.header, .footer{
+    padding: 10px 0;
 }
-/*.sidebar.hidden *{
-    display: none;
-}*/
-.sidebar .trigger{
-    box-shadow: 1px 0px 3px 2px #222;
-    display: block;
-    height: 100%;
-    width: 32px;
-    position: absolute;
-    right: 0;
-    background-color: #444;
-    z-index: 10;
-    border-left: 1px solid #111;
+.header{
+    border-bottom: 1px dashed #666;
 }
-.sidebar .trigger:hover{
-    cursor: pointer;
+.footer{
+    border-top: 1px dashed #666;
 }
-.sidebar .trigger .arrow{
-    position: absolute;
-    top: 50%;
-    margin-top: -8px;
-    left: 8px;
-    width: 16px;
-    height: 16px;
-    background-image: url("/img/arrow_up.png");
-    background-repeat: no-repeat;
-    -webkit-transform: rotate(270deg);
-    -webkit-transition-property: all;
-    -webkit-transition-duration: 0.2s;
-    -webkit-transition-timing-function: linear;
-    -webkit-transition-delay: 0.5s;
-}
-.sidebar.hidden .trigger .arrow{
-    -webkit-transform: rotate(90deg);
-}
-
-.sidebar h2{
+.top_menu, .bottom_menu{
     text-align: center;
+    width: 1024px;
+    margin: 0 auto;
+}
+.top_menu .menu_item{
+    margin: 0 10px;
 }
 .last_tests{
-    margin-left: 300px;
     padding: 30px;
     text-shadow: 1px 1px 0px #fff;
 }
 .tags{
     width: 80%;
-}
-#tags_chzn{
-    margin: 10px auto;
-    display: block;
-    width: 80% !important;
 }
 .search_tests_button {
     margin-left: 80px;
@@ -99,11 +57,27 @@ html, body{
 .tests_table .test_row.selected{
     background-color: #fff;
 }
-.tests_table thead td{
+.tests_table th{
     text-shadow: 0px 1px 0px #ccc   ;
+    border:1px solid #000;
+    text-align: center;
+    padding: 5px 10px;
 }
 .tests_table td{
     border:1px solid #000;
     text-align: center;
     padding: 5px 10px;
 }
+.tests_table .chart_settings{
+    text-align: left;
+}
+.chart_settings .draw_chart_button{
+    float: none;
+}
+
+.tags, .chzn-container{
+    display: inline-block;
+    width: 300px;
+}
+
+

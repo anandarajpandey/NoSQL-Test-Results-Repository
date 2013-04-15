@@ -1,0 +1,42 @@
+<table class="tests_table">
+    <thead>
+    <tr>
+        <th rowspan="2" colspan="2">Test</th>
+        <th rowspan="2">Throughput</th>
+        <th colspan="2">Read</th>
+        <th colspan="2">Write</th>
+    </tr>
+    <tr>
+        <th>Operations</th>
+        <th>Successes</th>
+        <th>Operations</th>
+        <th>Successes</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for result in results %}
+        {% if result.result is  empty %}
+        {% else %}
+            <tr class="test_row">
+                <td><input type="checkbox" id="{{result._id}}" class="test"></td>
+                <td>{{result.name}} </td>
+                <td>{{result.result['throughput']}}</td>
+                <td>{{result.result['read']['ops']}}</td>
+                <td>{{result.result['read']['successes']}}</td>
+                <td>{{result.result['write']['ops']}}</td>
+                <td>{{result.result['write']['successes']}}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    <tr>
+        <td colspan="7" class="chart_settings">
+            <select>
+                <option value="throughput">Throughput</option>
+                <option value="latency">Latency</option>
+            </select>
+            <?php $this->partial('partial/tags_selector'); ?>
+            <button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

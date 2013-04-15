@@ -19,14 +19,16 @@ $(function(){
         }
     });
     $(".draw_chart_button").on("click", function(){
+        var mock = {
+            'tests' : selected_tests,
+            'axes' : ['throughput'],
+            'group' : ['DataSetSize-6GB']
+        };
+        var chart = new Chart(mock, $("#chart"));
         if(selected_tests.length > 0){
-            var mock = {
-                'tests' : selected_tests,
-                'axes' : ['throughput'],
-                'group' : ['DataSetSize-6GB']
-            }
-            var chart = new Chart(mock);
-            chart.draw($("#chart"));
+            chart.draw();
+        }else{
+            chart.setError('Please, select a few tests results');
         }
 
     })

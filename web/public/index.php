@@ -100,7 +100,14 @@ try {
 		return $session;
 	});
 
-	/**
+    /**
+     * register elements
+
+    $di->set('elements', function(){
+        return new Elements();
+    });*/
+
+    /**
 	 * Handle the request
 	 */
 	$application = new \Phalcon\Mvc\Application();
