@@ -93,6 +93,8 @@ Test environments collection: **environments**
 
 Collection which holds just a document with ALL tags: **tags**
 
+Result files are stored in default GridFS collections (prefixed with "fs.")
+
 **results** collection (obligatory fields)
 ------------------------------------------
 
@@ -102,9 +104,11 @@ This is the main collection used everywhere (from UI). So it should be strongly 
 
     {
         _id: ObjectId
-        datetime: date		# timestamp when the test was performed
+        datetime: date		            # timestamp when the test was performed
         name: string
-        tags: [ string, ... ]	# ALL tags applicable for this test
+        tags: [ string, ... ]	        # ALL tags applicable for this test
+        files: [ ObjectId, ... ]        # list of files attached to the result
+        env_ref: ObjectId               # reference to the environment document
         result: {
             runtime: int64				# test runtime in ms
             throughput: double			# test throughput in ops/sec
@@ -169,7 +173,7 @@ The results collection can hold any other data which relates to the test. These 
         datetime: date					# timestamp when the test was performed
         name: string
         tags: [ string, ... ]	        # ALL tags applicable for this test
-        env_ref: ObjectId
+        env_ref: ObjectId               # reference to the environment document
         result: {
             runtime: int64				# test runtime in ms
             throughput: double			# test throughput in ops/sec
