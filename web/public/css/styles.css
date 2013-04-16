@@ -106,5 +106,8 @@ html, body{
     display: inline-block;
     width: 700px;
 }
+#search{
+    margin-bottom: 20px;
+}
 
 
