@@ -3,32 +3,43 @@
     {{ partial("partial/tags_selector") }}
     <button class="button search_tests_button"><span class="icon icon19"></span><span class="label">Search tests</span></button>
 </div>
-<table id="search_results" class="tests_table">
-    <thead>
-    <tr>
-        <th rowspan="2" colspan="2">Test</th>
-        <th rowspan="2">Throughput</th>
-        <th colspan="2">Read</th>
-        <th colspan="2">Write</th>
-    </tr>
-    <tr>
-        <th>Operations</th>
-        <th>Successes</th>
-        <th>Operations</th>
-        <th>Successes</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td colspan="7" class="chart_settings">
-            <select>
-                <option value="throughput">Throughput</option>
-                <option value="latency">Latency</option>
-            </select>
-            <?php $this->partial('partial/tags_selector'); ?>
-            <button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="tests_table_wrapper">
+    <div class="table_scroll">
+        <table id="search_results" class="tests_table">
+            <thead>
+                <tr>
+                    <th rowspan="2" colspan="2">Test</th>
+                    <th rowspan="2">Throughput</th>
+                    <th colspan="2">Read</th>
+                    <th colspan="2">Write</th>
+                </tr>
+                <tr>
+                    <th>Operations</th>
+                    <th>Successes</th>
+                    <th>Operations</th>
+                    <th>Successes</th>
+                </tr>
+            </thead>
+            <tbody class="results">
+                <tr>
+                    <td colspan="7" class="tip_in_table">
+                        select tags and click search
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" class="chart_settings">
+                        <select class="axe">
+                            <option value="throughput">Throughput</option>
+                            <option value="latency">Latency</option>
+                        </select>
+                        <?php $this->partial('partial/tags_selector'); ?>
+                        <button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
 <div id="chart"></div>

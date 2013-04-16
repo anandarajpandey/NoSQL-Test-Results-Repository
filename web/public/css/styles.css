@@ -4,7 +4,7 @@ html, body{
     margin: 0;
     background-image: url("/img/background.png");
     overflow-x:hidden;
-    font-family: "Verdana",sans-serif,"Ubuntu";
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;;
 }
 .wrapper{
     height: 100%;
@@ -36,12 +36,12 @@ html, body{
     margin: 0 10px;
     padding: 5px 10px;
     border-radius: 5px;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
     cursor: pointer;
 }
 .top_menu .menu_item a{
     color: #000;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
     text-shadow: 0px 1px 1px #fff;
 }
 .top_menu .menu_item:hover, .top_menu .menu_item.active{
@@ -53,13 +53,12 @@ html, body{
     text-shadow: 0px 1px 1px #000;
 }
 .content{
-    padding-top: 50px;
+    padding-top: 10px;
     width: 1024px;
     min-height: 300px;
     margin: 0 auto;
 }
 .last_tests{
-    padding: 30px;
     text-shadow: 1px 1px 0px #fff;
 }
 .tags{
@@ -70,12 +69,19 @@ html, body{
     width: 620px;
     margin-top: 30px;
 }
-
 .tests_table{
     border-collapse: collapse;
+    background-color: #F3F3F3;
 }
-.tests_table thead{
-    background-color: #9ab;
+.tests_table thead, .tests_table tfoot{
+    /*background-color: #99A9AD;*/
+    background-color: #1171a3;
+    color: #fff;
+}
+.tests_table tfoot td{
+    padding: 20px 10px;
+    line-height: 13px;
+    vertical-align: middle;
 }
 .tests_table .test_row{
     cursor: pointer;
@@ -84,18 +90,21 @@ html, body{
     background-color: #fff;
 }
 .tests_table th{
-    text-shadow: 0px 1px 0px #ccc   ;
-    border:1px solid #000;
+    border:1px solid #1191a3;
     text-align: center;
     padding: 5px 10px;
 }
 .tests_table td{
-    border:1px solid #000;
+    border:1px solid gray;
     text-align: center;
     padding: 5px 10px;
 }
 .tests_table .chart_settings{
     text-align: left;
+}
+.tests_table tbody{
+    max-height: 400px;
+    overflow-y: auto;
 }
 .button{
     float: none;
@@ -104,10 +113,24 @@ html, body{
 
 .tags{
     display: inline-block;
-    width: 700px;
+    width: 650px;
+    margin: 0 10px;
+}
+.axe{
+    width: 130px;
+ }
+.chzn-container, .button{
+    vertical-align: middle;
+    color: #000;
 }
 #search{
     margin-bottom: 20px;
 }
-
+.tests_table .tip_in_table{
+    padding: 50px 0;
+    color: #393;
+}
+.tests_table .tip_in_table.error{
+    color: #933;
+}
 
