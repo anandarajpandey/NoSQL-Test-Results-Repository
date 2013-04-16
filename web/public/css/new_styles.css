@@ -2,9 +2,26 @@ html, body{
     height: 100%;
     padding: 0;
     margin: 0;
-    background-image: url("/img/background.png");
-    overflow-x:hidden;
-    font-family: "Verdana",sans-serif,"Ubuntu";
+    /*background-image: url("/img/background.png");*/
+    background-color: #00A3EF;
+    /* IE10 Consumer Preview */
+    background-image: -ms-radial-gradient(center top, circle closest-corner, #FFFFFF 0%, #00A3EF 100%);
+
+    /* Mozilla Firefox */
+    background-image: -moz-radial-gradient(center top, circle closest-corner, #FFFFFF 0%, #00A3EF 100%);
+
+    /* Opera */
+    background-image: -o-radial-gradient(center top, circle closest-corner, #FFFFFF 0%, #00A3EF 100%);
+
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(radial, center top, 0, center top, 485, color-stop(0, #FFFFFF), color-stop(1, #00A3EF));
+
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-radial-gradient(center top, circle closest-corner, #FFFFFF 0%, #00A3EF 100%);
+
+    /* W3C Markup, IE10 Release Preview */
+    background-image: radial-gradient(circle closest-corner at center top, #FFFFFF 0%, #00A3EF 100%);
+    background-repeat: no-repeat;
 }
 .wrapper{
     height: 100%;
@@ -14,7 +31,10 @@ html, body{
 }
 .header{
     box-shadow: 0 1px 3px 0 #333;
-    background-image: url("/img/background.png");
+    position: fixed;
+    width: 100%;
+    /*background-image: url("/img/background.png");*/
+    background-color: #eee;
     z-index: 100;
 }
 .footer{
@@ -26,11 +46,20 @@ html, body{
     margin: 0 auto;
 }
 .bottom_menu{
-    font-size: 0.8em;
+    font-size: 0.9em;
     padding: 10px 0;
 }
 .bottom_menu .menu_item{
     margin: 0 10px;
+}
+.bottom_menu .menu_item a{
+    color: #000;
+}
+.bottom_menu .menu_item a:visited{
+    color: #333;
+}
+.bottom_menu .menu_item a:hover{
+    text-shadow: 0px 0px 10px #fff;
 }
 .top_menu .menu_item{
     margin: 0 10px;

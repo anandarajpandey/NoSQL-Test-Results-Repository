@@ -1,7 +1,11 @@
 $(function(){
     $("#tags").chosen({});
-    $(".sidebar .trigger").on("click",function(){
-       $(this).parent().toggleClass("hidden");
+    $(".search_test_button").on("click", function(){
+        $.ajax({
+            type    : "GET",
+            url     : "/api/getResults",
+            data    : $("#tags").val()
+        });
     });
     var selected_tests = [];
     $(".test_row").on("click", function(e){

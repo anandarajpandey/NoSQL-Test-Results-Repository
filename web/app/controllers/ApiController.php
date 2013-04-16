@@ -12,5 +12,9 @@ class ApiController extends ControllerBase
         exit();
     }
 
+    public function getResults(){
+
+    }
+
 }
 

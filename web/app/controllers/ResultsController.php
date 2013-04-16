@@ -21,6 +21,9 @@ class ResultsController extends ControllerBase
 
     public function searchAction(){
         $this->view->setVar("title", "Search tests results");
+        $tags_collection = Tags::findFirst();
+        $tags = $tags_collection->tags;
+        $this->view->setVar("tags", $tags);
     }
 
 }
