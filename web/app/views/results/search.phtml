@@ -1,8 +1,8 @@
 <h2>Search tests results</h2>
-<div id="search">
+<form id="search">
     {{ partial("partial/tags_selector") }}
     <button class="button search_tests_button"><span class="icon icon19"></span><span class="label">Search tests</span></button>
-</div>
+</form>
 
 <table id="search_results" class="tests_table">
     <thead>
@@ -29,12 +29,14 @@
     <tfoot>
         <tr>
             <td colspan="7" class="chart_settings">
-                <select class="axe">
-                    <option value="throughput">Throughput</option>
-                    <option value="latency">Latency</option>
-                </select>
-                <?php $this->partial('partial/tags_selector'); ?>
-                <button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button>
+                <form id="chart_settings">
+                    <select class="axe">
+                        <option value="throughput">Throughput</option>
+                        <option value="latency">Latency</option>
+                    </select>
+                    <?php $this->partial('partial/tags_selector'); ?>
+                    <button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button>
+                </form>
             </td>
         </tr>
     </tfoot>

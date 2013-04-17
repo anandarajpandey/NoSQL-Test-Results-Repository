@@ -1,0 +1,4 @@
+1. move menu code in separate function
+2. change chart's mock to real data
+3. add new chart type
+4. write user friendly text on pages

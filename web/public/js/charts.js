@@ -30,7 +30,9 @@ var Chart = function(source, $container){
         data = google.visualization.arrayToDataTable(data);
         var options = {
             title: 'Performance',
-            hAxis: {title: 'Test', titleTextStyle: {color: 'red'}}
+            hAxis: {title: 'Test', titleTextStyle: {color: 'red'}},
+            width: 620,
+            height: 320
         };
 
         var gchart = new google.visualization.ColumnChart(document.getElementById('chart'));

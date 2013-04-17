@@ -22,21 +22,26 @@ var results = function($container){
     };
 
     var setData = function(data){
-        $results_container.empty();
-        selected_results = [];
-        for (var key in data){
-            var result = data[key];
-            var $row =  $(["<tr class='test_row'>",
-                "<td><input type='checkbox' class='test' id='", result.id, "'></td>",
-                "<td>", result.name, "</td>",
-                "<td>", result.throughput, "</td>",
-                "<td>", result.read.o, "</td>",
-                "<td>", result.read.s, "</td>",
-                "<td>", result.write.o, "</td>",
-                "<td>", result.write.s, "</td>",
-                "</tr>"].join('')).on("click", row_handler);
-            $results_container.append($row);
+        if(data.length > 0){
+            $results_container.empty();
+            selected_results = [];
+            for (var key in data){
+                var result = data[key];
+                var $row =  $(["<tr class='test_row'>",
+                    "<td><input type='checkbox' class='test' id='", result.id, "'></td>",
+                    "<td>", result.name, "</td>",
+                    "<td>", result.throughput, "</td>",
+                    "<td>", result.read.o, "</td>",
+                    "<td>", result.read.s, "</td>",
+                    "<td>", result.write.o, "</td>",
+                    "<td>", result.write.s, "</td>",
+                    "</tr>"].join('')).on("click", row_handler);
+                $results_container.append($row);
+            }
+        }else{
+            writeMessage('tests results not found', 1);
         }
+
     };
 
     $container.find(".test_row").on("click", row_handler);
@@ -57,7 +62,6 @@ var results = function($container){
             return selected_results;
         },
         'searchByTags' : function(tags){
-            Log.add(tags);
             if(tags && tags.length > 0){
                 writeMessage("Loading...");
                 $.ajax({
