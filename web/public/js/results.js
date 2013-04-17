@@ -53,7 +53,7 @@ var results = function($container){
             error = '';
         }
         $results_container.html("<tr><td colspan='7' class='tip_in_table "+error+"'>"+message+"</td></tr>")
-    }
+    };
 
 
 
