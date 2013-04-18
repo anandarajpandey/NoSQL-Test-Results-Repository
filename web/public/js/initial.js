@@ -1,6 +1,6 @@
 $(function(){
 
-    $(".tags").chosen({});
+    $(".tags").chosen({'search_contains' : true});
     $(".axe").chosen({});
 
 
