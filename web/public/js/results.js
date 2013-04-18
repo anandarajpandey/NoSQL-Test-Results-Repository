@@ -45,6 +45,7 @@ var results = function($container){
     };
 
     var setData = function(data){
+        $select_all.prop("checked", false);
         if(data.length > 0){
             $results_container.empty();
             selected_results = [];
