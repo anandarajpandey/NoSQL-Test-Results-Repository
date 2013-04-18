@@ -4,20 +4,43 @@ var results = function($container){
 
     var $results_container = _$container.find(".results");
 
-    var selected_results = [];
+    var $select_all = $("#select_all");
+
+    $select_all.on("click", function(){
+        var select = $(this).prop("checked");
+        var $rows = _$container.find(".test_row");
+        if($rows.length > 0){
+            _$container.find(".test_row").each(function(){
+                select_deselect_row($(this), select);
+            });
+        }else{
+            return false;
+        }
+    });
 
     var row_handler = function(e){
         var $this = $(this);
-        $this.toggleClass("selected");
-        var test = $this.find(".test");
-        if(!$(e.target).hasClass("test")){
-            test.prop("checked", !test.is(":checked"));
+        var select = !$this.hasClass("selected");
+        select_deselect_row($this, select);
+    };
+
+    var select_deselect_row = function($row, select){
+        if(select !== false){
+            select = true;
         }
-        var index = selected_results.indexOf(test.attr("id"));
-        if (index !== -1){
-            selected_results.splice(index, 1);
-        } else {
-            selected_results.push(test.attr("id"));
+        var $test = $row.find('.test');
+
+        if(select){
+            $row.addClass("selected");
+            $test.prop("checked", true);
+        }else{
+            $row.removeClass("selected");
+            $test.prop("checked", false);
+        }
+        if($(".test_row").length == $(".selected").length){
+            $select_all.prop("checked", true);
+        }else{
+            $select_all.prop("checked", false);
         }
     };
 
@@ -59,6 +82,10 @@ var results = function($container){
 
     return {
         'getSelectedResults' : function(){
+            var selected_results = [];
+            $(".test:checked").each(function(){
+               selected_results.push($(this).attr("id"));
+            });
             return selected_results;
         },
         'searchByTags' : function(tags){
