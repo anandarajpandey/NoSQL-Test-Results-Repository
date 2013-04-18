@@ -28,17 +28,19 @@
             </tr>
         {% endif %}
     {% endfor %}
-    <tr>
-        <td colspan="7" class="chart_settings">
-            <form id="chart_settings">
-                <select class="axe">
-                    <option value="throughput">Throughput</option>
-                    <option value="latency">Latency</option>
-                </select>
-                <?php $this->partial('partial/tags_selector'); ?>
-                <button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button>
-            </form>
-        </td>
-    </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="7" class="chart_settings">
+                <form id="chart_settings">
+                    <select class="axe">
+                        <option value="throughput">Throughput</option>
+                        <option value="latency">Latency</option>
+                    </select>
+                    <?php $this->partial('partial/tags_selector'); ?>
+                    <button class="button draw_chart_button"><span class="icon icon178"></span><span class="label">Draw chart</span></button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
 </table>

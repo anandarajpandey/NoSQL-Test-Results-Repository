@@ -70,12 +70,14 @@ html, body{
 .tests_table{
     border-collapse: collapse;
     background-color: #F3F3F3;
+    box-shadow: 0 1px 3px 0 #000;
 }
 .tests_table thead, .tests_table tfoot{
-    /*background-color: #99A9AD;*/
-    background-color: #1171a3;
+    /*background-color: #99A9AD;
+    background-color: #1171a3;*/
+    background-image: url(/img/white_carbonfiber.png);
     text-shadow: none;
-    color: #fff;
+    color: #222;
 }
 .tests_table tfoot td{
     padding: 20px 10px;
@@ -89,7 +91,8 @@ html, body{
     background-color: #fff;
 }
 .tests_table th{
-    border:1px solid #1191a3;
+    /*border:1px solid #1191a3;*/
+    border:1px solid #666;
     text-align: center;
     padding: 5px 10px;
 }
@@ -108,6 +111,7 @@ html, body{
 .button{
     float: none;
     margin: 0 0 0 5px;
+    box-shadow: 0 1px 3px 0 #222;
 }
 
 .tags{

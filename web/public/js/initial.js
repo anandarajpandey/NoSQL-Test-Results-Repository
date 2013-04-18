@@ -17,7 +17,7 @@ $(function(){
         if(selected_tests.length > 0){
             var mock = {
                 'tests' : selected_tests,
-                'axes' : ['throughput'],
+                'axes' : $(".axe").val(),
                 'group' : ['DataSetSize-6GB']
             };
             var chart = new Chart(mock, $chart);
