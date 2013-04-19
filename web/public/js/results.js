@@ -6,6 +6,16 @@ var results = function($container){
 
     var $select_all = $("#select_all");
 
+    var $test_data_container = $("<div class='test_data_container'>" +
+                                    '<button class="button close_test_data"><span class="icon icon48"></span><span class="label">Close</span></button>' +
+                                    "<div class='test_data'></div>" +
+                                "</div>").appendTo(".content");
+
+    $(".close_test_data").on("click", function(){
+        $test_data_container.hide();
+        return false;
+    });
+
     $select_all.on("click", function(){
         var select = $(this).prop("checked");
         var $rows = _$container.find(".test_row");
@@ -53,13 +63,20 @@ var results = function($container){
                 var result = data[key];
                 var $row =  $(["<tr class='test_row'>",
                     "<td><input type='checkbox' class='test' id='", result.id, "'></td>",
-                    "<td>", result.name, "</td>",
+                    "<td><a href='/api/getTestAllData?id=", result.id, "' target='_blank' data-test_id='",result.id,"' class='show_test_data'>", result.name, "</a></td>",
                     "<td>", result.throughput, "</td>",
                     "<td>", result.read.o, "</td>",
                     "<td>", result.read.s, "</td>",
                     "<td>", result.write.o, "</td>",
                     "<td>", result.write.s, "</td>",
                     "</tr>"].join('')).on("click", row_handler);
+
+                $row.find(".show_test_data").on("click", function(){
+                    Log.add($(this).data("testId"));
+                    show_test_data($(this).data("test_id"));
+                    return false;
+                });
+
                 $results_container.append($row);
             }
         }else{
@@ -79,7 +96,21 @@ var results = function($container){
         $results_container.html("<tr><td colspan='7' class='tip_in_table "+error+"'>"+message+"</td></tr>")
     };
 
-
+    var show_test_data = function(test_id){
+        $.ajax({
+            type    : 'GET',
+            url     : '/api/getTestAllData',
+            data    : {'id' : test_id},
+            success : function(response){
+                $test_data_container.find(".test_data").html(response);
+                prettyPrint();
+                $test_data_container.show();
+            },
+            error   : function(error, text){
+                Log.add(text);
+            }
+        });
+    };
 
     return {
         'getSelectedResults' : function(){

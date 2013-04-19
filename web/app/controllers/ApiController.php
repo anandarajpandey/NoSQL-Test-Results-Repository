@@ -28,5 +28,30 @@ class ApiController extends ControllerBase
         exit();
     }
 
+    public function getTestAllDataAction(){
+
+        if(!empty($_GET['id'])){
+            $test_id = $_GET['id'];
+            $data = Results::findById($test_id);
+            unset($data->_id);
+            if($data){
+                if(!empty($_GET['pretty']) && $_GET['pretty'] == false){
+                    echo json_encode($data);
+                }else{
+                    echo '<pre class="prettyprint">';
+                    echo json_encode($data, JSON_PRETTY_PRINT);
+                    echo '</pre>';
+                }
+            }else{
+                $this->response->setStatusCode(404, "Test result not found")->sendHeaders();
+                echo "Test result not found";
+            }
+        }else{
+            $this->response->setStatusCode(500, "Incorrect test result id")->sendHeaders();
+            echo "Incorrect test result id";
+        }
+        exit();
+    }
+
 }
 

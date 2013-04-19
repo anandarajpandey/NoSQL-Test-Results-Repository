@@ -4,6 +4,7 @@
 		<title>{{title}}</title>
         {{ stylesheet_link("/css/css3-buttons.css") }}
         {{ stylesheet_link("/css/chosen.css") }}
+        {{ stylesheet_link("/css/prettify.css") }}
         <?
             if(!empty($_GET['new_style'])){ ?>
                 {{ stylesheet_link("/css/new_styles.css") }}
@@ -17,6 +18,7 @@
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" src="/js/chosen.jquery.min.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="/js/prettify.js"></script>
         <script type="text/javascript" src="/js/logger.js"></script>
         <script type="text/javascript" src="/js/results.js"></script>
         <script type="text/javascript" src="/js/charts.js"></script>

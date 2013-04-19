@@ -42,7 +42,7 @@ var Chart = function(source, $container){
 
     var drawLoader = function(){
         Log.add("wait of response");
-        _$container.html("loading");
+        _$container.html("Loading...");
     };
 
     return {
