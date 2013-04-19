@@ -35,7 +35,7 @@ class ApiController extends ControllerBase
             $data = Results::findById($test_id);
             unset($data->_id);
             if($data){
-                if(!empty($_GET['pretty']) && $_GET['pretty'] == false){
+                if(isset($_GET['pretty']) && $_GET['pretty'] == false){
                     echo json_encode($data);
                 }else{
                     echo '<pre class="prettyprint">';
