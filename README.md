@@ -31,3 +31,7 @@ Web UI
 
 You can search, see details, draw comparison charts from Web UI written in Python.
 For example, see http://nosqltestrepo.dev.thumbtack.net
+
+---
+
+[Demo presentation](https://docs.google.com/presentation/d/1WZA73kh6dfPpaDj3ruhjVdXI2cLJm1HPp-mMo1V1ieE/edit?usp=sharing)
