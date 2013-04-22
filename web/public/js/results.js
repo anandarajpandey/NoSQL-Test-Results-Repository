@@ -58,11 +58,11 @@ var results = function($container){
         $select_all.prop("checked", false);
         if(data.length > 0){
             $results_container.empty();
-            selected_results = [];
+            $select_all.prop("checked", "checked");
             for (var key in data){
                 var result = data[key];
-                var $row =  $(["<tr class='test_row'>",
-                    "<td><input type='checkbox' class='test' id='", result.id, "'></td>",
+                var $row =  $(["<tr class='test_row selected'>",
+                    "<td><input type='checkbox' class='test' checked id='", result.id, "'></td>",
                     "<td><a href='/api/getTestAllData?id=", result.id, "' target='_blank' data-test_id='",result.id,"' class='show_test_data'>", result.name, "</a></td>",
                     "<td>", result.throughput, "</td>",
                     "<td>", result.read.o, "</td>",

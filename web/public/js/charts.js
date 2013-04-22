@@ -20,22 +20,23 @@ var Chart = function(source, $container){
             },
             'success':  function(response){
                 data = response;
-                $(document).trigger("gotChartData", [data]);
+                _$container.trigger("gotChartData", [data]);
             }
         });
     })();
 
-    var drawChart = function(data, $container){
+    var drawChart = function(data){
         Log.add("start drow chart");
+        var title = data[0][0];
         data = google.visualization.arrayToDataTable(data);
         var options = {
             title: 'Performance',
-            hAxis: {title: 'Test', titleTextStyle: {color: 'red'}},
-            width: 620,
-            height: 320
+            hAxis: {title: title, titleTextStyle: {color: 'red'}},
+            width: 920,
+            height: 420
         };
 
-        var gchart = new google.visualization.ColumnChart(document.getElementById('chart'));
+        var gchart = new google.visualization.ColumnChart(document.getElementById(_$container.attr("id")));
         gchart.draw(data, options);
 
     };
@@ -49,11 +50,11 @@ var Chart = function(source, $container){
         'draw' : function(){
             if(_$container){
                 if(data.length > 0){
-                    drawChart(data, _$container);
+                    drawChart(data);
                 }else{
-                    drawLoader(_$container);
-                    $(document).on("gotChartData", function(e, response){
-                        drawChart(response, _$container);
+                    drawLoader();
+                    _$container.on("gotChartData", function(e, response){
+                        drawChart(response);
                         $(document).off("gotChartData");
                     });
                 }
