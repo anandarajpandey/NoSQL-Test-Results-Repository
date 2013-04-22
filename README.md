@@ -29,7 +29,7 @@ Each test is marked by a huge amount of tags: for hardware, for OS, for database
 Web UI
 ------
 
-You can search, see details, draw comparison charts from Web UI written in Python.
+You can search, see details, draw comparison charts from Web UI written in Phalcon(PHP framework) and jQuery(javascript framework).
 For example, see http://nosqltestrepo.dev.thumbtack.net
 
 ---
