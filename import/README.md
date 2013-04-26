@@ -20,6 +20,7 @@ Requirements
 
 * Python 2.7
 * pymongo 2.2
+* dateutil 1.5
 
 Usage
 -----
