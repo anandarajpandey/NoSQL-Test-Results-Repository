@@ -16,6 +16,11 @@ var results = function($container){
         return false;
     });
 
+    $(".show_test_data").on("click", function(){
+        show_test_data($(this).data("test_id"));
+        return false;
+    });
+
     $select_all.on("click", function(){
         var select = $(this).prop("checked");
         var $rows = _$container.find(".test_row");
@@ -72,7 +77,6 @@ var results = function($container){
                     "</tr>"].join('')).on("click", row_handler);
 
                 $row.find(".show_test_data").on("click", function(){
-                    Log.add($(this).data("testId"));
                     show_test_data($(this).data("test_id"));
                     return false;
                 });

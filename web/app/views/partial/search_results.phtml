@@ -20,7 +20,7 @@
         {% else %}
             <tr class="test_row">
                 <td><input type="checkbox" id="{{result._id}}" class="test"></td>
-                <td><a href="/api/getTestAllData?id={{result._id}}" target="_blank">{{result.name}}</a></td>
+                <td><a href="/api/getTestAllData?id={{result._id}}" target="_blank" data-test_id="{{result._id}}" class="show_test_data">{{result.name}}</a></td>
                 <td>{{result.result['throughput']}}</td>
                 <td>{{result.result['read']['ops']}}</td>
                 <td>{{result.result['read']['successes']}}</td>

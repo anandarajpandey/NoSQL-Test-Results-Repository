@@ -65,7 +65,12 @@ class Charts
             }
             return $return;
         }else{
-            self::$result_data['axe'] = array(self::$latency_type.' '.self::$axe);
+            if(self::$axe == 'throughput'){
+                self::$result_data['axe'] = array(self::$axe);
+            }else{
+                self::$result_data['axe'] = array(self::$latency_type.' '.self::$axe);
+            }
+
             $results = Results::find(array('conditions' => array('_id' => array('$in' => self::$tests))));
             foreach($results as $result){
                 self::$result_data['tests'][] = $result->name;
