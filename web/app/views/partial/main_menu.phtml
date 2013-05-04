@@ -1,0 +1,10 @@
+<?php
+    $menu =  $this->elements->getMenu();
+    $html = '';
+    foreach($menu as $menu_item){
+        $class = $menu_item['current'] ? 'active' : '';
+        $html .= '<span class="menu_item '.$class.'">
+                    <a href="'.$menu_item['url'].'">'.$menu_item['caption'].'</a>
+                  </span>';
+    }
+    echo $html;
