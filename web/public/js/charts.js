@@ -1,11 +1,11 @@
 google.load("visualization", "1", {packages:["corechart"]});
 
-var Chart = function(source, $container){
+function Chart(source, $container){
 
     if(!source){
         throw Error("no source for chart");
     }
-
+    var that = this;
     var data = {};
     var _$container = $container;
 
@@ -19,6 +19,7 @@ var Chart = function(source, $container){
                 Log.add(code+" "+text);
             },
             'success':  function(response){
+                that.setUrl(source);
                 data = response;
                 _$container.trigger("gotChartData", [data]);
             }
@@ -26,7 +27,7 @@ var Chart = function(source, $container){
     })();
 
     var drawChart = function(data){
-        Log.add("start drow chart");
+        Log.add("start draw chart");
         var title = data[0][0];
         data = google.visualization.arrayToDataTable(data);
         var options = {
@@ -46,29 +47,31 @@ var Chart = function(source, $container){
         _$container.html("Loading...");
     };
 
-    return {
-        'draw' : function(){
-            if(_$container){
-                if(data.length > 0){
-                    drawChart(data);
-                }else{
-                    drawLoader();
-                    _$container.on("gotChartData", function(e, response){
-                        drawChart(response);
-                        $(document).off("gotChartData");
-                    });
-                }
-                return true;
+
+    this.draw = function(){
+        if(_$container){
+            if(data.length > 0){
+                drawChart(data);
             }else{
-                Log.add("jQuery container for chart not found");
-                return false;
+                drawLoader();
+                _$container.on("gotChartData", function(e, response){
+                    drawChart(response);
+                    $(document).off("gotChartData");
+                });
             }
-        },
-        'setError' : function(html){
-            _$container.html(html);
-        },
-        'setContainer' : function($container){
-             _$container = $container;
+            return true;
+        }else{
+            Log.add("jQuery container for chart not found");
+            return false;
         }
-    }
+    };
+    this.setError = function(html){
+        _$container.html(html);
+    };
+    this.setContainer = function($container){
+         _$container = $container;
+    };
+
 };
+
+Chart.prototype = navigate;

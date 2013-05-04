@@ -6,7 +6,7 @@
         {{ stylesheet_link("/css/chosen.css") }}
         {{ stylesheet_link("/css/prettify.css") }}
         <?
-            if(!empty($_GET['new_style'])){ ?>
+            if(!empty($_COOKIE['new_style'])){ ?>
                 {{ stylesheet_link("/css/new_styles.css") }}
             <? } else { ?>
                 {{ stylesheet_link("/css/styles.css") }}
@@ -20,6 +20,7 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script src="/js/prettify.js"></script>
         <script type="text/javascript" src="/js/logger.js"></script>
+        <script type="text/javascript" src="/js/navigate.js"></script>
         <script type="text/javascript" src="/js/results.js"></script>
         <script type="text/javascript" src="/js/charts.js"></script>
         <script type="text/javascript" src="/js/initial.js"></script>
@@ -36,12 +37,12 @@
 	<body>
     <div class="wrapper">
         <div class="header">
-
             <div class="top_menu">
-                <span class="menu_item">{{ link_to("/", "About") }}</span>
+                <?php $this->partial("partial/main_menu"); ?>
+                <!--<span class="menu_item">{{ link_to("/", "About") }}</span>
                 <span class="menu_item">{{ link_to("/results", "Latest results") }}</span>
                 <span class="menu_item">{{ link_to("/results/search", "Search results") }}</span>
-                <span class="menu_item">{{ link_to("/help", "Help me") }}</span>
+                <span class="menu_item">{{ link_to("/help", "Help me") }}</span>-->
             </div>
         </div>
         <div class="content">

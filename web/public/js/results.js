@@ -1,5 +1,6 @@
-var results = function($container){
+function Results($container){
 
+    var that = this;
     var _$container = $container;
 
     var $results_container = _$container.find(".results");
@@ -116,33 +117,37 @@ var results = function($container){
         });
     };
 
-    return {
-        'getSelectedResults' : function(){
-            var selected_results = [];
-            $(".test:checked").each(function(){
-               selected_results.push($(this).attr("id"));
-            });
-            return selected_results;
-        },
-        'searchByTags' : function(tags){
-            if(tags && tags.length > 0){
-                writeMessage("Loading...");
-                $.ajax({
-                    type    : "GET",
-                    url     : "/api/getResults",
-                    data    : {'tags': tags},
-                    'dataType': 'json',
-                    success : function(response){
-                        setData(response);
-                    },
-                    error   : function(e, mesage){
-                        Log.add(mesage);
-                    }
-                });
-            }else{
-                writeMessage("Select one or more tags for search", 1);
-            }
 
+    this.getSelectedResults = function(){
+        var selected_results = [];
+        $(".test:checked").each(function(){
+           selected_results.push($(this).attr("id"));
+        });
+        return selected_results;
+    };
+    this.searchByTags = function(tags){
+        if(tags && tags.length > 0){
+            writeMessage("Loading...");
+            $.ajax({
+                type    : "GET",
+                url     : "/api/getResults",
+                data    : {'tags': tags},
+                'dataType': 'json',
+                success : function(response){
+                    setData(response);
+                    that.setUrl({'tags' : tags});
+                },
+                error   : function(e, mesage){
+                    Log.add(mesage);
+                }
+            });
+        }else{
+            writeMessage("Select one or more tags for search", 1);
         }
+
     }
+
 };
+
+Results.prototype = navigate;
+

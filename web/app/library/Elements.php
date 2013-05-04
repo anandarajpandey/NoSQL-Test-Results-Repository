@@ -12,8 +12,10 @@ class Elements extends Phalcon\Mvc\User\Component
             array('caption' => 'Help me', 'url' => '/help' ),
         );
         foreach($menu as &$item){
-            if($item['url'] == $_GET['q']){
+            if($item['url'] == $_SERVER['REQUEST_URI']){
                 $item['current'] = true;
+            }else{
+                $item['current'] = false;
             }
         }
         unset($item);

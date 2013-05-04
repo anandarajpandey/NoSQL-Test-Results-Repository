@@ -17,7 +17,8 @@ try {
 	$loader->registerDirs(
 		array(
 			$config->application->controllersDir,
-			$config->application->modelsDir
+			$config->application->modelsDir,
+            $config->application->libraryDir
 		)
 	)->register();
 
@@ -102,10 +103,10 @@ try {
 
     /**
      * register elements
-
+     */
     $di->set('elements', function(){
         return new Elements();
-    });*/
+    });
 
     /**
 	 * Handle the request

@@ -4,7 +4,7 @@ $(function(){
     $(".axe").chosen({});
 
 
-    var res = new results($(".tests_table"));
+    var res = new Results($(".tests_table"));
 
     $("#search").submit(function(){
         res.searchByTags($(this).find(".tags").val());
