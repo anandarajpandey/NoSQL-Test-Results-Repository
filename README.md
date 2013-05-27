@@ -35,3 +35,7 @@ For example, see http://nosqltestrepo.dev.thumbtack.net
 ---
 
 [Demo presentation](https://docs.google.com/presentation/d/1WZA73kh6dfPpaDj3ruhjVdXI2cLJm1HPp-mMo1V1ieE/edit?usp=sharing)
+
+---
+
+This project won the second prize on [MongoDB March Madness](http://www.10gen.com/blog/post/mongodb-march-madness-recap).
